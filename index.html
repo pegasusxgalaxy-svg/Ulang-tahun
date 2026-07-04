@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Selamat Ulang Tahun</title>
+<title>🎂 Selamat Ulang Tahun 🎂</title>
 
 <style>
 *{
@@ -14,17 +14,23 @@ font-family:Arial,sans-serif;
 }
 
 body{
+background:linear-gradient(135deg,#0f172a,#1e3a8a,#000);
 height:100vh;
 overflow:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
-background:linear-gradient(135deg,#0f172a,#1e3a8a,#000);
-color:white;
+color:#fff;
 }
 
-#btn{
-padding:15px 40px;
+.container{
+text-align:center;
+display:none;
+padding:20px;
+}
+
+button{
+padding:15px 35px;
 font-size:22px;
 border:none;
 border-radius:40px;
@@ -34,135 +40,98 @@ cursor:pointer;
 box-shadow:0 0 20px #ff4d8d;
 }
 
-#box{
-display:none;
-text-align:center;
-padding:20px;
-}
-
 h1{
 font-size:32px;
 color:gold;
 text-shadow:0 0 15px gold;
 margin-bottom:20px;
-animation:zoom 2s infinite alternate;
 }
 
 .cake{
-font-size:110px;
-margin-bottom:15px;
+font-size:100px;
+margin:20px 0;
+}.message{
+display:none;
+animation:fade 1s ease;
 }
 
-p{
-font-size:20px;
-line-height:1.5;
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(30px);
 }
-
-.balloon{
-position:absolute;
-bottom:-60px;
-font-size:35px;
-animation:fly 8s linear forwards;
-}
-
-.firework{
-position:absolute;
-font-size:30px;
-animation:boom 1s forwards;
-}
-
-@keyframes fly{
 to{
-transform:translateY(-120vh);
+opacity:1;
+transform:translateY(0);
 }
 }
 
-@keyframes boom{
-0%{
-transform:scale(.3);
-opacity:1;
+.confetti{
+position:fixed;
+top:-10px;
+font-size:24px;
+animation:fall linear forwards;
+pointer-events:none;
 }
-100%{
-transform:scale(2);
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(720deg);
 opacity:0;
 }
 }
-
-@keyframes zoom{
-to{
-transform:scale(1.05);
-}
-}
 </style>
-
 </head>
 
 <body>
 
-<button id="btn">🎉 Mulai</button>
+<div class="container" id="start">
+<button onclick="mulai()">🎉 Buka Ucapan 🎉</button>
+</div>
 
-<div id="box">
-<h1>🎂 Selamat Ulang Tahun 🎂</h1>
+<div class="container message" id="pesan">
+<h1>🎂 Selamat Ulang Tahun! 🎂</h1>
 
 <div class="cake">🎂</div>
 
 <p>
-Semoga sehat selalu,<br>
-panjang umur,<br>
-bahagia selalu,<br>
-dan semua impianmu tercapai. ✨
-</p>
+Semoga panjang umur, sehat selalu,
+dimudahkan semua urusannya,
+semoga semua impianmu tercapai,
+dan selalu diberikan kebahagiaan.
+🥳🎉🎁
+</p><br><br>
+
+<button onclick="location.reload()">🔄 Ulangi</button>
 
 </div>
 
 <script>
+const start=document.getElementById("start");
+const pesan=document.getElementById("pesan");
 
-btn.onclick=function(){
+window.onload=()=>{
+start.style.display="block";
+};
 
-btn.style.display="none";
+function mulai(){
+start.style.display="none";
+pesan.style.display="block";
 
-box.style.display="block";
+setInterval(()=>{
+const c=document.createElement("div");
+c.className="confetti";
+c.innerHTML=["🎉","🎊","✨","🎈","🎁"][Math.floor(Math.random()*5)];
+c.style.left=Math.random()*100+"vw";
+c.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(c);
 
-setInterval(balloon,500);
+setTimeout(()=>{
+c.remove();
+},5000);
 
-setInterval(firework,350);
-
+},200);
 }
-
-function balloon(){
-
-let b=document.createElement("div");
-
-b.className="balloon";
-
-b.innerHTML=["🎈","🎉","💖"][Math.floor(Math.random()*3)];
-
-b.style.left=Math.random()*100+"vw";
-
-document.body.appendChild(b);
-
-setTimeout(()=>b.remove(),8000);
-
-}
-
-function firework(){
-
-let f=document.createElement("div");
-
-f.className="firework";
-
-f.innerHTML=["🎆","✨","🎇","💥"][Math.floor(Math.random()*4)];
-
-f.style.left=Math.random()*100+"vw";
-
-f.style.top=Math.random()*60+"vh";
-
-document.body.appendChild(f);
-
-setTimeout(()=>f.remove(),1000);
-
-}
-
 </script>
 
 </body>
